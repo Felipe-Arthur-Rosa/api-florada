@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Pedido {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  nomeCliente     String
+  destinatario    String?
+  telefone        String
+  endereco        Endereco? @relation(fields: [enderecoId], references: [id])
+  metodoPagamento String
+  produtos        Produto[]
+  valorFinal      String
+  status          Status    @relation(fields: [statusId], references: [id])
+  enderecoId      String?   @db.ObjectId
+  statusId        String    @db.ObjectId
+}
+
+model Produto {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  nome     String
+  valor    String
+  Pedido   Pedido? @relation(fields: [pedidoId], references: [id])
+  pedidoId String? @db.ObjectId
+}
+
+model Status {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  status String
+  Pedido Pedido[]
+}
+
+model Endereco {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  rua             String
+  numero          Int
+  bairro          String
+  cidade          String
+  complemento     String?
+  dataHoraEntrega String?
+  Pedido          Pedido[]
+}
