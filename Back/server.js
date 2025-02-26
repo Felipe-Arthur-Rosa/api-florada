@@ -1,8 +1,11 @@
-import app from './src/api/api.js';
+import app from './src/controllers/api.js';
 import mongoose from 'mongoose';
 
 mongoose
-  .connect("mongodb://localhost:27017/", {})
+  .connect(
+    "mongodb+srv://felipe:M8dZfOPyt6iDjFBM@cluster0.3ha6i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    {}
+  )
   .then(() => console.log("MongoDB conectado"))
   .catch((err) => console.log("Erro ao conectar", err));
 

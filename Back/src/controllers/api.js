@@ -1,7 +1,7 @@
 import express from 'express';
 import { PrismaClient  } from '@prisma/client';
 import cors from 'cors';
-import readService from '../services/user.js';
+import { readService, createService } from "../services/user.js";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -11,7 +11,12 @@ app.use(cors());
 
 app.get('/user', async (req, res) => {
   const resultado = await readService();
-  res.status(200).json(resultado);
+  res.status(resultado.status).json(resultado.body);
+});
+
+app.post('/user', async (req, res) => {
+  const resultado = await createService(req.body);
+  res.status(resultado.status).json(resultado.body);
 });
 
 // PEDIDOS

@@ -1,14 +1,20 @@
-import mongoose from "mongoose";
 import Usuario from "../domain/models/user.js";
 
 async function read() {
     const resultado = await Usuario.find({});
-    
-    console.log(resultado);
     return resultado;
 }
 
-export default read;
+async function create(user) {
+    const usuario = await Usuario.create({ 
+        nome: user.nome, 
+        email: user.email, 
+        idade: user.idade 
+    });
+    return usuario;
+}
+
+export { read , create };
 
 
 // app.post("/usuarios", async (req, res) => {
