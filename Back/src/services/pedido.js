@@ -54,11 +54,7 @@ async function criaPedido(pedido) {
             body: { error: "valorFinal, produtos e metodoPagamento são informações obrigatórias!" },
         };
     }
-    var produtoLista = [];
-    pedido.produtos.forEach(produto => {
-      produtoLista.push({ ...ProdutoSchema.obj, ...produto });
-    });
-    const produtos = produtoLista;
+    const produtos = pedido.produtos
     
     const status = { ...Status.obj, ...pedido.status };
     const endereco =

@@ -9,7 +9,7 @@ const PedidoSchema = new mongoose.Schema({
   telefone: { type: String, required: true },
   endereco: { type: EnderecoSchema },
   metodoPagamento: { type: String, required: true },
-  produtos: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProdutoSchema" }],
+  produtos: { type: [ProdutoSchema], required: true },
   valorFinal: { type: Number, required: true },
   status: { type: Status.schema, required: true },
 });
