@@ -7,6 +7,7 @@ import {
 } from "../services/pedido.js";
 
 const pedidoRoute = express.Router();
+pedidoRoute.use(express.json());
 
 pedidoRoute.get("/pedido", async (req, res) => {
   const resultado = await readService();

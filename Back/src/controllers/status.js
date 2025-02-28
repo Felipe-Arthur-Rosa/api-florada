@@ -1,6 +1,6 @@
 import express from "express";
 const statusRoute = express.Router();
-
+statusRoute.use(express.json());
 import {
   readService,
   createService,

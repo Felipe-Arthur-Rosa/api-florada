@@ -54,7 +54,12 @@ async function criaPedido(pedido) {
             body: { error: "valorFinal, produtos e metodoPagamento são informações obrigatórias!" },
         };
     }
-    const produtos = { ...ProdutoSchema.obj, ...pedido.produtos };
+    var produtoLista = [];
+    pedido.produtos.forEach(produto => {
+      produtoLista.push({ ...ProdutoSchema.obj, ...produto });
+    });
+    const produtos = produtoLista;
+    
     const status = { ...Status.obj, ...pedido.status };
     const endereco =
       pedido.endereco && Object.keys(pedido.endereco).length > 0
@@ -96,6 +101,17 @@ async function atualizaPedido(id, pedido) {
             body: { error: "valorFinal, produtos e metodoPagamento são informações obrigatórias!" },
         };
     }
+
+    pedido.produtos.forEach(produto => {
+        if(produto.nome === undefined || produto.nome == "" || 
+           produto.valor === undefined || typeof produto.valor == Number) {
+            return {
+                status: 400,
+                body: { error: "nome de Produto e valor é são informações obrigatorias" },
+            };
+        }
+    });
+
     const produtos = { ...ProdutoSchema.obj, ...pedido.produtos };
     const status = { ...Status.obj, ...pedido.status };
     const endereco =
