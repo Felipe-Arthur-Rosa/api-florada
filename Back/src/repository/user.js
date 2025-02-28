@@ -9,12 +9,13 @@ async function read(id = null) {
     return resultado;
 }
 
-async function create(user, endereco) {
+async function create(user ,endereco) {
     const usuario = await Usuario.create({ 
         nome: user.nome, 
         email: user.email, 
         idade: user.idade,
         endereco : endereco
+
     });
     return usuario;
 }
@@ -35,14 +36,3 @@ async function delet(id) {
 }
 
 export { read, create, uptade, delet };
-
-
-// app.post("/usuarios", async (req, res) => {
-//   try {
-//     const usuario = new Usuario(req.body);
-//     await usuario.save();
-//     res.status(201).json(usuario);
-//   } catch (error) {
-//     res.status(400).json({ erro: error.message });
-//   }
-// });

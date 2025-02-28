@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import EnderecoSchema from "./endereco";
-import Produtos from "./produto";
-import Status from "./status";
+import EnderecoSchema from "./endereco.js";
+import ProdutoSchema from "./produto.js";
+import Status from "./status.js";
 
 const PedidoSchema = new mongoose.Schema({
   nomeCliente: { type: String, required: true },
@@ -9,9 +9,9 @@ const PedidoSchema = new mongoose.Schema({
   telefone: { type: String, required: true },
   endereco: { type: EnderecoSchema },
   metodoPagamento: { type: String, required: true },
-  produtos: { type: Produtos, required: true },
+  produtos: { type: [ProdutoSchema], required: true },
   valorFinal: { type: Number, required: true },
-  status: { type: Status, required: true },
+  status: { type: Status.schema, required: true },
 });
 
 const Pedido = mongoose.model("Pedidos", PedidoSchema);

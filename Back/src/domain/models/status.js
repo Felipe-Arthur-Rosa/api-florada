@@ -4,6 +4,6 @@ const StatusSchema = new mongoose.Schema({
   nome: { type: String, required: true },
 });
 
-const Status = mongoose.model("Produtos", StatusSchema);
+const Status = mongoose.model("Status", StatusSchema);
 
 export default Status;

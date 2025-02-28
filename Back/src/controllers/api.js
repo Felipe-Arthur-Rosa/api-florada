@@ -1,5 +1,6 @@
 import express from 'express';
-import { PrismaClient  } from '@prisma/client';
+import statusRoute from './status.js';
+import pedidoRoute from './pedidos.js'; 
 import cors from 'cors';
 import {
   readService, createService,
@@ -7,7 +8,6 @@ import {
 } from "../services/user.js";
 
 const app = express();
-const prisma = new PrismaClient();
 
 app.use(express.json());
 app.use(cors());
@@ -36,5 +36,9 @@ app.delete('/user/:id', async (req, res) => {
   const resultado = await deleteService(req.params.id);
   res.status(resultado.status).json(resultado.body);
 });
+
+app.use(statusRoute);
+app.use(pedidoRoute);
+
 
 export default app;
