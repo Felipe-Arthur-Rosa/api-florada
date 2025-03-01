@@ -12,6 +12,7 @@ const PedidoSchema = new mongoose.Schema({
   produtos: { type: [ProdutoSchema], required: true },
   valorFinal: { type: Number, required: true },
   status: { type: Status.schema, required: true },
+  entregador: { type: String },
 });
 
 const Pedido = mongoose.model("Pedidos", PedidoSchema);

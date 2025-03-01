@@ -19,6 +19,7 @@ async function create(pedido, produtos, status, endereco = null) {
     produtos: produtos,
     valorFinal: pedido.valorFinal,
     status: status,
+    entregador: pedido.entregador,
   });
   return resultado;
 }
