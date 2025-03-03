@@ -12,7 +12,8 @@ async function read(id = null) {
 async function create(pedido, produtos, status, endereco = null) {
   const resultado = await Pedido.create({
     nomeCliente: pedido.nomeCliente,
-    destinario: pedido.destinario,
+    destinatario: pedido.destinatario,
+    mensagem: pedido.mensagem,
     telefone: pedido.telefone,
     endereco: endereco,
     metodoPagamento: pedido.metodoPagamento,

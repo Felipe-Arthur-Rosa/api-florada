@@ -5,7 +5,8 @@ import Status from "./status.js";
 
 const PedidoSchema = new mongoose.Schema({
   nomeCliente: { type: String, required: true },
-  destinario: { type: String },
+  destinatario: { type: String },
+  mensagem: { type: String },
   telefone: { type: String, required: true },
   endereco: { type: EnderecoSchema },
   metodoPagamento: { type: String, required: true },
