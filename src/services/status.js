@@ -25,23 +25,15 @@ async function buscaStatus(id) {
 }
 
 async function criaStatus(status) {
-  if (
-    status.status === undefined ||
-    status.status === null ||
-    status.status === ""
-  ) {
+  if (status.nome === undefined || status.nome === null || status.nome === "") {
     return { status: 400, body: { error: "Status não informado" } };
   }
-  const resultado = await create(status.status);
+  const resultado = await create(status);
   return { status: 200, body: resultado };
 }
 
 async function atualizaStatus(id, status) {
-  if (
-    status.status === undefined ||
-    status.status === null ||
-    status.status === ""
-  ) {
+  if (status.nome === undefined || status.nome === null || status.nome === "") {
     return { status: 400, body: { error: "Status não informado" } };
   }
   await uptade(id, status);

@@ -11,14 +11,14 @@ async function read(id = null) {
 
 async function create(status) {
   const resultado = await Status.create({
-    status: status.status,
+    nome: status.nome,
   });
   return resultado;
 }
 
 async function uptade(id, status) {
   const resultado = await Status.findByIdAndUpdate(id, {
-    status: status.status,
+    nome: status.nome,
   });
   return resultado;
 }
