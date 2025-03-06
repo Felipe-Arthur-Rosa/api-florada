@@ -80,13 +80,21 @@ async function criaPedido(pedido) {
 
 async function atualizaPedido(id, pedido) {
     try	{
-    if(!pedido || pedido.nomeCliente === undefined || pedido.nomeCliente == "" ||
-        pedido.telefone === undefined   || pedido.telefone == "" || 
-        pedido.status === undefined || pedido.status.nome == "") {
-        return {
-            status: 400,
-            body: { error: "nomeCliente, telefone e Status são informações obrigatórias!" },
-        };
+    if (
+      !pedido ||
+      pedido.nomeCliente === undefined ||
+      pedido.nomeCliente == "" ||
+      pedido.telefone === undefined ||
+      pedido.telefone == "" ||
+      pedido.status === undefined ||
+      pedido.status.nome == ""
+    ) {
+      return {
+        status: 400,
+        body: {
+          error: "nomeCliente, telefone e Status são informações obrigatórias!",
+        },
+      };
     }
 
     if( pedido.valorFinal === undefined || typeof pedido.valorFinal == Number ||
@@ -97,18 +105,8 @@ async function atualizaPedido(id, pedido) {
             body: { error: "valorFinal, produtos e metodoPagamento são informações obrigatórias!" },
         };
     }
-
-    pedido.produtos.forEach(produto => {
-        if(produto.nome === undefined || produto.nome == "" || 
-           produto.valor === undefined || typeof produto.valor == Number) {
-            return {
-                status: 400,
-                body: { error: "nome de Produto e valor é são informações obrigatorias" },
-            };
-        }
-    });
-
-    const produtos = { ...ProdutoSchema.obj, ...pedido.produtos };
+    const produtos = pedido.produtos
+    
     const status = { ...Status.obj, ...pedido.status };
     const endereco =
       pedido.endereco && Object.keys(pedido.endereco).length > 0
@@ -123,13 +121,12 @@ async function atualizaPedido(id, pedido) {
 
     return {
       status: 400,
-      body: { error: "Não foi possivel editar esse pedido" },
+      body: { error: "Não foi possivel criar esse pedido" },
     };
 
 } catch (error) {
     return { status: 500, body: { error: error.message } };
-}
-}
+}}
 
 async function deletaPedido(id) {
   if(!id) {
