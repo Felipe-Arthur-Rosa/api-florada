@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const EnderecoSchema = new mongoose.Schema({
-  rua: { type: String, required: true },
+  rua: { type: String },
   numero: { type: Number },
-  bairro: { type: String, required: true },
-  cidade: { type: String, required: true },
+  bairro: { type: String },
+  cidade: { type: String },
   complemento: { type: String },
   dataHoraEntrega: { type: String },
 });

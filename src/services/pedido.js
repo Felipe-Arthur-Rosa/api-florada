@@ -3,6 +3,22 @@ import ProdutoSchema from "../domain/models/produto.js";
 import Status from "../domain/models/status.js";
 import EnderecoSchema  from "../domain/models/endereco.js";
 
+function montaEndereco(endereco) {
+  if (!endereco) {
+    return undefined;
+  }
+
+  const enderecoLimpo = Object.fromEntries(
+    Object.entries(endereco).filter(([, value]) => value !== undefined && value !== null && value !== "")
+  );
+
+  if (Object.keys(enderecoLimpo).length === 0) {
+    return undefined;
+  }
+
+  return { ...EnderecoSchema.obj, ...enderecoLimpo };
+}
+
 async function readService(id = null) {
     return await buscaPedido(id);
 }
@@ -57,10 +73,7 @@ async function criaPedido(pedido) {
     const produtos = pedido.produtos
     
     const status = { ...Status.obj, ...pedido.status };
-    const endereco =
-      pedido.endereco && Object.keys(pedido.endereco).length > 0
-        ? { ...EnderecoSchema.obj, ...pedido.endereco }
-        : undefined;
+    const endereco = montaEndereco(pedido.endereco);
      
     const resultado = await create(pedido, produtos, status, endereco);
 
@@ -108,10 +121,7 @@ async function atualizaPedido(id, pedido) {
     const produtos = pedido.produtos
     
     const status = { ...Status.obj, ...pedido.status };
-    const endereco =
-      pedido.endereco && Object.keys(pedido.endereco).length > 0
-        ? { ...EnderecoSchema.obj, ...pedido.endereco }
-        : undefined;
+    const endereco = montaEndereco(pedido.endereco);
      
     const resultado = await uptade(id, pedido, produtos, status, endereco);
 

@@ -27,14 +27,17 @@ async function create(pedido, produtos, status, endereco = null) {
 
 async function uptade(id, pedido, produtos, status, endereco = null) {
   const resultado = await Pedido.findByIdAndUpdate(id, {
-    nome: pedido.nome,
-    email: pedido.email,
-    idade: pedido.idade,
+    nomeCliente: pedido.nomeCliente,
+    destinatario: pedido.destinatario,
+    mensagem: pedido.mensagem,
+    telefone: pedido.telefone,
+    metodoPagamento: pedido.metodoPagamento,
+    entregador: pedido.entregador,
     endereco: endereco,
     produtos: produtos,
     valorFinal: pedido.valorFinal,
     status: status,
-  });
+  }, { new: true });
   return resultado;
 }
 
