@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 mongoose
   .connect(
-    "mongodb+srv://felipe:M8dZfOPyt6iDjFBM@cluster0.3ha6i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    "mongodb+srv://felipe:M8dZfOPyt6iDjFBM@cluster0.nti9nti.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     {}
   )
   .then(() => console.log("MongoDB conectado"))
