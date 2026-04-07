@@ -20,13 +20,18 @@ async function create(user ,endereco) {
     return usuario;
 }
 
-async function uptade(id, user, endereco) {
-    const usuario = await Usuario.findByIdAndUpdate(id, {
+async function uptade(id, user, endereco, enderecoInformado = false) {
+    const dadosAtualizados = {
       nome: user.nome,
       email: user.email,
       idade: user.idade,
-      endereco: endereco
-    });
+    };
+
+    if (enderecoInformado) {
+      dadosAtualizados.endereco = endereco;
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate(id, dadosAtualizados);
     return usuario;
 }
 

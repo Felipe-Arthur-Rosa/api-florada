@@ -1,6 +1,22 @@
 import EnderecoSchema from "../domain/models/endereco.js";
 import { read, create, uptade, delet } from "../repository/user.js";
 
+function montaEndereco(endereco) {
+  if (!endereco) {
+    return undefined;
+  }
+
+  const enderecoLimpo = Object.fromEntries(
+    Object.entries(endereco).filter(([, value]) => value !== undefined && value !== null && value !== "")
+  );
+
+  if (Object.keys(enderecoLimpo).length === 0) {
+    return undefined;
+  }
+
+  return { ...EnderecoSchema.obj, ...enderecoLimpo };
+}
+
 async function readService(id = null) {
     return await buscaUsuarios(id);
 }
@@ -47,7 +63,7 @@ async function criaUsuario(user) {
     };
   }
 
-  const endereco = { ...EnderecoSchema.obj, ...user.endereco };
+  const endereco = montaEndereco(user.endereco);
 
   const resultado = await create(user, endereco);
   if (resultado) {
@@ -81,7 +97,10 @@ async function atualizaUsuario(id, user) {
     };
   }
 
-  await uptade(id, user);
+  const enderecoInformado = Object.prototype.hasOwnProperty.call(user, "endereco");
+  const endereco = montaEndereco(user.endereco);
+
+  await uptade(id, user, endereco, enderecoInformado);
   const resultado = await read(id);
 
   if (resultado) {
