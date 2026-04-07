@@ -1,5 +1,4 @@
 import { read, create, uptade, delet } from "../repository/pedido.js";
-import ProdutoSchema from "../domain/models/produto.js";
 import Status from "../domain/models/status.js";
 
 function montaEndereco(endereco) {
