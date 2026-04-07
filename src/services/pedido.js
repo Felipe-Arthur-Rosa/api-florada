@@ -1,7 +1,6 @@
 import { read, create, uptade, delet } from "../repository/pedido.js";
 import ProdutoSchema from "../domain/models/produto.js";
 import Status from "../domain/models/status.js";
-import EnderecoSchema  from "../domain/models/endereco.js";
 
 function montaEndereco(endereco) {
   if (!endereco) {
@@ -16,7 +15,7 @@ function montaEndereco(endereco) {
     return undefined;
   }
 
-  return { ...EnderecoSchema.obj, ...enderecoLimpo };
+  return enderecoLimpo;
 }
 
 async function readService(id = null) {

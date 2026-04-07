@@ -1,4 +1,3 @@
-import EnderecoSchema from "../domain/models/endereco.js";
 import { read, create, uptade, delet } from "../repository/user.js";
 
 function montaEndereco(endereco) {
@@ -14,7 +13,7 @@ function montaEndereco(endereco) {
     return undefined;
   }
 
-  return { ...EnderecoSchema.obj, ...enderecoLimpo };
+  return enderecoLimpo;
 }
 
 async function readService(id = null) {
