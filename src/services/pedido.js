@@ -1,6 +1,8 @@
 import { read, create, uptade, delet } from "../repository/pedido.js";
 import Status from "../domain/models/status.js";
 
+const MAX_PRODUCT_VALUE = 1_000_000_000_000;
+
 function montaEndereco(endereco) {
   if (!endereco) {
     return undefined;
@@ -69,6 +71,13 @@ async function criaPedido(pedido) {
         };
     }
     const produtos = pedido.produtos
+
+    if (produtos.some((produto) => Number(produto?.valor) > MAX_PRODUCT_VALUE)) {
+      return {
+        status: 400,
+        body: { error: "O valor maximo por produto e R$ 1.000.000.000.000,00." },
+      };
+    }
     
     const status = { ...Status.obj, ...pedido.status };
     const endereco = montaEndereco(pedido.endereco);
@@ -117,6 +126,13 @@ async function atualizaPedido(id, pedido) {
         };
     }
     const produtos = pedido.produtos
+
+    if (produtos.some((produto) => Number(produto?.valor) > MAX_PRODUCT_VALUE)) {
+      return {
+        status: 400,
+        body: { error: "O valor maximo por produto e R$ 1.000.000.000.000,00." },
+      };
+    }
     
     const status = { ...Status.obj, ...pedido.status };
     const endereco = montaEndereco(pedido.endereco);
