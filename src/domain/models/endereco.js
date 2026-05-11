@@ -7,6 +7,7 @@ const EnderecoSchema = new mongoose.Schema({
   cidade: { type: String },
   complemento: { type: String },
   dataHoraEntrega: { type: String },
+  horaPeriodoEntrega: { type: String },
 });
 
 export default EnderecoSchema;
